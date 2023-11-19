@@ -22,7 +22,7 @@ def add_text_to_image(image_data, top_text, bottom_text):
 
     # Calculate positions
     top_text_position = ((image.width - top_text_length) / 2, 10)  # 10 pixels from the top edge
-    bottom_text_position = ((image.width - bottom_text_length)/2, image.height + 100)  # 10 pixels from the bottom edge
+    bottom_text_position = ((image.width - bottom_text_length)/2, image.height - 250)  # 10 pixels from the bottom edge
 
     # Add text to image
     draw.text(top_text_position, top_text, font=font, fill="white")
