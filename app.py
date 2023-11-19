@@ -5,14 +5,14 @@ import json
 import base64
 from PIL import Image, ImageDraw, ImageFont
 import io
-
+import math
 def add_text_to_image(image_data, top_text, bottom_text):
     # Load the image
     image = Image.open(io.BytesIO(image_data))
     
     # Choose a font and size
     font_size = image.width // 20
-    font = ImageFont.truetype('arial.ttf', font_size)  # Using a default font 'arial.ttf'
+    font = ImageFont.truetype('geo_1.ttf', font_size)  # Using a default font 'arial.ttf'
     
     # Initialize ImageDraw
     draw = ImageDraw.Draw(image)
