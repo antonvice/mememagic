@@ -17,10 +17,12 @@ def add_text_to_image(image_data, top_text, bottom_text):
     # Initialize ImageDraw
     draw = ImageDraw.Draw(image)
 
+    top_text_length = draw.textlength(top_text, font=font)
+    bottom_text_length = draw.textlength(bottom_text, font=font)
 
     # Calculate positions
-    top_text_position = (((image.width) // 2)-(len(top_text)*15), 10)  # 10 pixels from the top edge
-    bottom_text_position = (((image.width) // 2) - (len(bottom_text)*15), image.height - 100)  # 10 pixels from the bottom edge
+    top_text_position = ((image.width - top_text_length) / 2, 10)  # 10 pixels from the top edge
+    bottom_text_position = ((image.width - bottom_text_length), image.height - 100)  # 10 pixels from the bottom edge
 
     # Add text to image
     draw.text(top_text_position, top_text, font=font, fill="white")
