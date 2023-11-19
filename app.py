@@ -8,25 +8,36 @@ import io
 
 def add_text_to_image(image_data, top_text, bottom_text):
     # Load the image
-
     image = Image.open(io.BytesIO(image_data))
     
     # Choose a font and size
     font_size = image.width // 20
-    font = ImageFont.truetype('geo_1.ttf', font_size) 
+    font = ImageFont.truetype('arial.ttf', font_size)  # Using a default font 'arial.ttf'
+    
     # Initialize ImageDraw
     draw = ImageDraw.Draw(image)
 
+    # Function to draw text with a black stroke
+    def draw_text_with_stroke(position, text, font, stroke_width):
+        x, y = position
+        # Draw stroke
+        for angle in range(0, 360, 15):  # Draw the stroke in all directions
+            dx = stroke_width * math.cos(math.radians(angle))
+            dy = stroke_width * math.sin(math.radians(angle))
+            draw.text((x+dx, y+dy), text, font=font, fill="black")
+        # Draw main text
+        draw.text(position, text, font=font, fill="white")
+
+    # Calculate text length and positions
     top_text_length = draw.textlength(top_text, font=font)
     bottom_text_length = draw.textlength(bottom_text, font=font)
+    top_text_position = ((image.width - top_text_length) / 2, 10)
+    bottom_text_position = ((image.width - bottom_text_length) / 2, image.height - font_size * 2)
 
-    # Calculate positions
-    top_text_position = ((image.width - top_text_length) / 2, 10)  # 10 pixels from the top edge
-    bottom_text_position = ((image.width - bottom_text_length)/2, image.height - 250)  # 10 pixels from the bottom edge
-
-    # Add text to image
-    draw.text(top_text_position, top_text, font=font, fill="white")
-    draw.text(bottom_text_position, bottom_text, font=font, fill="white")
+    # Add text with stroke to image
+    stroke_width = 2  # Adjust the stroke width as needed
+    draw_text_with_stroke(top_text_position, top_text, font, stroke_width)
+    draw_text_with_stroke(bottom_text_position, bottom_text, font, stroke_width)
     return image
 # Streamlit app title
 st.title("Meme Generator")
